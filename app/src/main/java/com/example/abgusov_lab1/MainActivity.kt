@@ -2,6 +2,7 @@ package com.example.abgusov_lab1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -19,6 +20,9 @@ class MainActivity : AppCompatActivity() {
 
         // Обработчик нажатия кнопки
         showDayButton.setOnClickListener {
+
+            hideKeyboard()
+
             try {
                 // Получаем введенный номер дня
                 val dayNumber = dayNumberInput.text.toString().toInt()
@@ -62,5 +66,10 @@ class MainActivity : AppCompatActivity() {
             7 -> "Воскресенье"
             else -> throw IllegalArgumentException("Некорректный номер дня")
         }
+    }
+
+    private fun hideKeyboard() {
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
     }
 }
